@@ -9,7 +9,7 @@ public class CreateJobRequest {
     private String classpath;
     private String group;
     private String description;
-    private Map<String, Object> data;
+    private Map<String, Object> data; // debug, jobName
     private List<TriggerDetail> triggerDetailList;
     private boolean autoStart;
 }

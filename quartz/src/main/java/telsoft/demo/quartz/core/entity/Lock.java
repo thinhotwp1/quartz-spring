@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Locks {
+public class Lock {
     @Id
     @Column(name = "SCHED_NAME", nullable = false, length = 120)
     private String schedName;

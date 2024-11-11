@@ -3,13 +3,12 @@ package telsoft.demo.quartz.core.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Immutable;
 
 @Entity
 @Table(name = "QRTZ_CALENDARS")
 @Getter
 @Setter
-public class Calendars {
+public class Calendar {
     @Id
     @Column(name = "CALENDAR_NAME", nullable = false, length = 200)
     private String calendarName;

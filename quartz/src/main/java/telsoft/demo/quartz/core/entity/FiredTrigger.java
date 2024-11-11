@@ -4,14 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Immutable;
 
 @Entity
 @Table(name = "QRTZ_FIRED_TRIGGERS")
 @Getter
 @Setter
 @NoArgsConstructor
-public class FiredTriggers {
+public class FiredTrigger {
     @Id
     @Column(name = "ENTRY_ID", nullable = false, length = 95)
     private String entryId;
@@ -51,6 +50,5 @@ public class FiredTriggers {
 
     @Column(name = "REQUESTS_RECOVERY", columnDefinition = "tinyint", length = 1)
     private Boolean requestsRecovery;
-
 }
 

@@ -1,15 +1,19 @@
 package telsoft.demo.quartz.core.service;
 
+import jakarta.xml.bind.ValidationException;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import telsoft.demo.quartz.core.dto.*;
-import telsoft.demo.quartz.core.entity.JobDetails;
+import telsoft.demo.quartz.core.repository.CronTriggerRepository;
+import telsoft.demo.quartz.core.entity.JobDetail;
+import telsoft.demo.quartz.core.entity.Trigger;
 import telsoft.demo.quartz.core.enums.TriggerType;
 import telsoft.demo.quartz.core.exception.NotFoundException;
-import telsoft.demo.quartz.core.repository.JobDetailsRepository;
+import telsoft.demo.quartz.core.repository.JobDetailRepository;
+import telsoft.demo.quartz.core.repository.SimpleTriggerRepository;
+import telsoft.demo.quartz.core.repository.TriggerRepository;
 
 import java.util.*;
 
@@ -21,37 +25,46 @@ public class JobService {
     private Scheduler scheduler;
 
     @Autowired
-    JobDetailsRepository jobDetailsRepository;
+    JobDetailRepository jobDetailRepository;
+
+    @Autowired
+    SimpleTriggerRepository simpleTriggerRepository;
+
+    @Autowired
+    TriggerRepository triggerRepository;
 
     @Autowired
     TriggerService triggerService;
 
-    public List<JobDetails> getAllJobs() throws SchedulerException {
-        List<JobDetails> responseList = new ArrayList<>();
-        List<JobDetails> jobDetailsList = jobDetailsRepository.findAll();
+    @Autowired
+    private CronTriggerRepository cronTriggerRepository;
 
-        if (jobDetailsList.isEmpty())
+    public List<JobDetail> getAllJobs() throws SchedulerException, NotFoundException {
+        List<JobDetail> responseList = new ArrayList<>();
+        List<JobDetail> jobDetailList = jobDetailRepository.findAll();
+
+        if (jobDetailList.isEmpty())
             throw new NotFoundException("Not found any job");
 
-        for (JobDetails jobDetails : jobDetailsList) {
-            responseList.add(getJobDetails(jobDetails));
+        for (JobDetail jobDetail : jobDetailList) {
+            responseList.add(getJobDetails(jobDetail));
         }
 
         return responseList;
     }
 
-    public JobDetails getJobDetail(String jobName) throws SchedulerException {
-        Optional<JobDetails> jobDetailDatabase = jobDetailsRepository.findById(jobName);
+    public JobDetail getJobDetail(String jobId, String jobGroup) throws SchedulerException {
+        Optional<JobDetail> jobDetailDatabase = jobDetailRepository.findByJobNameAndJobGroup(jobId, jobGroup);
 
         if (jobDetailDatabase.isEmpty())
-            throw new NotFoundException("Not found job detail with job name: " + jobName);
+            throw new NotFoundException("Not found job detail with jobId: " + jobId);
 
         return getJobDetails(jobDetailDatabase.get());
     }
 
-    private JobDetails getJobDetails(JobDetails jobDetailDatabase) throws SchedulerException {
+    private JobDetail getJobDetails(JobDetail jobDetailDatabase) throws SchedulerException {
         // Convert JobDataMap to Map<String, Object>
-        JobDetail jobDetailQuartz = scheduler.getJobDetail(JobKey.jobKey(jobDetailDatabase.getJobName(), jobDetailDatabase.getJobGroup()));
+        org.quartz.JobDetail jobDetailQuartz = scheduler.getJobDetail(JobKey.jobKey(jobDetailDatabase.getJobName(), jobDetailDatabase.getJobGroup()));
         JobDataMap jobDataMap = jobDetailQuartz.getJobDataMap();
         Map<String, Object> dataMap = new HashMap<>(jobDataMap);
         jobDetailDatabase.setJobDataMap(dataMap);
@@ -61,12 +74,15 @@ public class JobService {
         return jobDetailDatabase;
     }
 
-    public void createGenericJob(CreateJobRequest createJobRequest) throws SchedulerException, ClassNotFoundException {
+    public void createGenericJob(CreateJobRequest createJobRequest) throws SchedulerException, ClassNotFoundException, ValidationException {
         // Load jobClass by ClassPath
         Class<? extends Job> jobClass = (Class<? extends Job>) Class.forName(createJobRequest.getClasspath());
 
+        // Validate request
+        validateJobData(createJobRequest.getData());
+
         // Create JobDetail with params
-        JobDetail jobDetail = JobBuilder.newJob(jobClass)
+        org.quartz.JobDetail jobDetail = JobBuilder.newJob(jobClass)
                 .withIdentity("job_" + System.currentTimeMillis(), createJobRequest.getGroup())
                 .withDescription(createJobRequest.getDescription())
                 .usingJobData(new JobDataMap(createJobRequest.getData()))
@@ -75,9 +91,9 @@ public class JobService {
                 .build();
 
         // Create triggers with params
-        List<Trigger> triggers = new ArrayList<>();
+        List<org.quartz.Trigger> triggers = new ArrayList<>();
         for (TriggerDetail triggerDetailInfo : createJobRequest.getTriggerDetailList()) {
-            Trigger trigger;
+            org.quartz.Trigger trigger;
             if (TriggerType.CRON.equals(triggerDetailInfo.getTriggerType()) && triggerDetailInfo.getCronExpression() != null) {
                 // Create trigger CRON
                 trigger = TriggerBuilder.newTrigger()
@@ -102,22 +118,40 @@ public class JobService {
         scheduler.scheduleJob(jobDetail, new HashSet<>(triggers), true);
     }
 
-    public ResponseEntity<?> deleteJobById(String id) {
-        try {
-            jobDetailsRepository.deleteById(id);
-            return ResponseEntity.ok("Success");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
+    private void validateJobData(Map<String, Object> data) throws ValidationException {
+        if (data.get("debug") == null && data.get("jobName") == null)
+            throw new ValidationException("Missing some default parameters: debug, jobName");
     }
 
-    public void pauseJob(PauseJobRequest pauseJobRequest) throws SchedulerException {
-        JobKey jobKey = new JobKey(pauseJobRequest.getJobName(), pauseJobRequest.getJobGroup());
+    public void deleteJobById(String jobId, String jobGroup) throws SchedulerException {
+        JobDetail jobDetail = getJobDetail(jobId, jobGroup);
+
+        for (Trigger trigger : jobDetail.getTriggers()) {
+
+            switch (trigger.getTriggerType()) {
+                case "SIMPLE":
+                    simpleTriggerRepository.deleteById(trigger.getTriggerName());
+                case "CRON":
+                    cronTriggerRepository.deleteById(trigger.getTriggerName());
+            }
+            triggerRepository.deleteById(trigger.getTriggerName());
+        }
+
+        jobDetailRepository.deleteById(jobId);
+    }
+
+    public void pauseJob(String jobId, String jobGroup) throws SchedulerException {
+        JobKey jobKey = new JobKey(jobId, jobGroup);
         scheduler.pauseJob(jobKey);
     }
 
     public ResponseEntity<?> updateStartupMode(StartupModeRequest startupModeRequest) throws SchedulerException {
         scheduler.pauseJob(new JobKey(startupModeRequest.getJobName()));
         return ResponseEntity.ok("Startup mode updated successfully.");
+    }
+
+    public void startJob(String jobId, String jobGroup) throws SchedulerException {
+        JobKey jobKey = new JobKey(jobId, jobGroup);
+        scheduler.resumeJob(jobKey);
     }
 }

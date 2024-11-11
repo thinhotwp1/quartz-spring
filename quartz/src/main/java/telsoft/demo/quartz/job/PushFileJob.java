@@ -1,16 +1,17 @@
-package telsoft.demo.quartz.jobs;
+package telsoft.demo.quartz.job;
 
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import telsoft.demo.quartz.core.job.JobAbstract;
 
 import java.util.Map;
 
 @Component
-public class GetFileJob implements Job {
+public class PushFileJob extends JobAbstract {
+
     private static final Logger logger = LoggerFactory.getLogger(GetFileJob.class);
 
     @Override
@@ -25,4 +26,5 @@ public class GetFileJob implements Job {
         }
         logger.info(log);
     }
+
 }

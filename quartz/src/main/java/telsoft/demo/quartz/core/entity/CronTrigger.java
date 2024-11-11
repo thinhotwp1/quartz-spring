@@ -4,15 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Immutable;
 
 @Entity
 @Table(name = "QRTZ_CRON_TRIGGERS")
 @Getter
 @Setter
 @NoArgsConstructor
-public class CronTriggers {
-
+public class CronTrigger {
     @Id
     @Column(name = "TRIGGER_NAME", nullable = false, length = 200)
     private String triggerName;
@@ -29,8 +27,5 @@ public class CronTriggers {
     @Column(name = "SCHED_NAME", nullable = false, length = 120)
     private String schedName;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "SCHED_NAME", nullable = false)
-//    private Triggers schedName;
 }
 

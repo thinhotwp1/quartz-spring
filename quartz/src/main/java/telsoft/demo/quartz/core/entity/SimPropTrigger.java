@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Immutable;
 
 import java.math.BigDecimal;
 
@@ -13,8 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SimpropTriggers {
-
+public class SimPropTrigger {
     @Id
     @Column( name = "TRIGGER_NAME", nullable = false,length = 200)
     private String triggerName;
@@ -57,10 +55,6 @@ public class SimpropTriggers {
 
     @Column(name = "SCHED_NAME", nullable = false, length = 120)
     private String schedName;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "SCHED_NAME", nullable = false)
-//    private Triggers schedName;
 
 }
 

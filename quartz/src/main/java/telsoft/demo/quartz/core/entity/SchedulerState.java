@@ -12,7 +12,6 @@ import org.hibernate.annotations.Immutable;
 @Setter
 @NoArgsConstructor
 public class SchedulerState {
-
     @Id
     @Column(name = "INSTANCE_NAME", nullable = false, length = 200)
     private String instanceName;

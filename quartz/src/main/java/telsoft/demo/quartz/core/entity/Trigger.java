@@ -1,20 +1,16 @@
 package telsoft.demo.quartz.core.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "QRTZ_TRIGGERS")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Triggers {
-
+public class Trigger {
     @Id
     @Column(name = "TRIGGER_NAME", nullable = false, length = 200)
     private String triggerName;
@@ -63,22 +59,6 @@ public class Triggers {
 
     @Column(name = "SCHED_NAME", nullable = false, length = 120)
     private String schedName;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "JOB_NAME", referencedColumnName = "JOB_NAME", insertable = false, updatable = false)
-//    private JobDetails jobDetails;
-//
-//    @OneToMany(mappedBy = "schedName")
-//    private Set<SimpleTriggers> schedNameSimpleTriggers;
-//
-//    @OneToMany(mappedBy = "schedName")
-//    private Set<CronTriggers> schedNameCronTriggers;
-//
-//    @OneToMany(mappedBy = "schedName")
-//    private Set<SimpropTriggers> schedNameSimpropTriggers;
-//
-//    @OneToMany(mappedBy = "schedName")
-//    private Set<BlobTriggers> schedNameBlobTriggers;
 
 }
 

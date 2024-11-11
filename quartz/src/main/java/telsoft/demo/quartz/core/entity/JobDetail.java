@@ -1,12 +1,10 @@
 package telsoft.demo.quartz.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Immutable;
 
 import java.util.Map;
 import java.util.Set;
@@ -16,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JobDetails {
+public class JobDetail {
     @Id
     @Column(name = "JOB_NAME", nullable = false, length = 200)
     private String jobName;
@@ -53,9 +51,6 @@ public class JobDetails {
     private Map<String,Object> jobDataMap;
 
     @Transient
-    private Set<Triggers> triggers;
-
-//    @OneToMany(mappedBy = "jobDetails")
-//    private Set<Triggers> triggers;
+    private Set<Trigger> triggers;
 }
 

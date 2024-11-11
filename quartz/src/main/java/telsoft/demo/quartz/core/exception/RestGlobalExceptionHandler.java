@@ -1,8 +1,8 @@
 package telsoft.demo.quartz.core.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.xml.bind.ValidationException;
 import lombok.extern.log4j.Log4j2;
-import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,56 +10,65 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
-import java.io.InvalidObjectException;
 import java.nio.file.AccessDeniedException;
+import java.nio.file.NoSuchFileException;
 
 @RestControllerAdvice
 @Log4j2
-public class GlobalExceptionHandler {
+public class RestGlobalExceptionHandler {
 
     private final HttpServletRequest request;
 
-    public GlobalExceptionHandler(HttpServletRequest request) {
+    public RestGlobalExceptionHandler(HttpServletRequest request) {
         this.request = request;
     }
 
     @ExceptionHandler({IOException.class})
     public ResponseEntity<?> handler(IOException e) {
         logErrorDetail(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("IO exception: " + e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("IO exception: " + e.getMessage());
+    }
+    @ExceptionHandler({ValidationException.class})
+    public ResponseEntity<?> handler(ValidationException e) {
+        logErrorDetail(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation exception: " + e.getMessage());
+    }
+    @ExceptionHandler({NotFoundException.class})
+    public ResponseEntity<?> handler(NotFoundException e) {
+        logErrorDetail(e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not found exception: " + e.getMessage());
     }
     @ExceptionHandler({ClassNotFoundException.class})
     public ResponseEntity<?> handler(ClassNotFoundException e) {
         logErrorDetail(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Class not found exception: " + e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Class not found exception: " + e.getMessage());
     }
-
     @ExceptionHandler({AccessDeniedException.class})
     public ResponseEntity<?> handler(AccessDeniedException e) {
         logErrorDetail(e);
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied exception: " + e);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied exception: " + e.getMessage());
     }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleUnwantedException(Exception e) {
         logErrorDetail(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unwanted exception: " + e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unwanted exception: " + e.getMessage());
     }
-
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<?> handler(RuntimeException e) {
         logErrorDetail(e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Runtime exception: " + e.getMessage());
     }
-
     @ExceptionHandler({RestClientException.class})
     public ResponseEntity<?> handler(RestClientException e) {
         logErrorDetail(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Rest client exception: " + e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Rest client exception: " + e.getMessage());
     }
-
+    @ExceptionHandler({NoSuchFileException.class})
+    public ResponseEntity<?> handler(NoSuchFileException e) {
+        logErrorDetail(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No such file exception: " + e.getMessage());
+    }
     private void logErrorDetail(Exception e) {
-        // log Error Detail
-//        log.info("Error detail: "+ e.getMessage());
+        log.error("Error detail: "+ e.getMessage());
     }
 }
