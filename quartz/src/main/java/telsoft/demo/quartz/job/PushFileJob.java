@@ -12,8 +12,6 @@ import java.util.Map;
 @Component
 public class PushFileJob extends JobAbstract {
 
-    private static final Logger logger = LoggerFactory.getLogger(GetFileJob.class);
-
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         // Lấy các tham số được truyền vào
@@ -24,7 +22,7 @@ public class PushFileJob extends JobAbstract {
         for (Map.Entry<String, Object> entry : param.entrySet()) {
             log = log + entry.getKey() + ": " + entry.getValue() + ", ";
         }
-        logger.info(log);
+        logDebug(context, log);
     }
 
 }

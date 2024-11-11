@@ -17,10 +17,7 @@ import java.nio.file.NoSuchFileException;
 @Log4j2
 public class RestGlobalExceptionHandler {
 
-    private final HttpServletRequest request;
-
     public RestGlobalExceptionHandler(HttpServletRequest request) {
-        this.request = request;
     }
 
     @ExceptionHandler({IOException.class})
@@ -69,6 +66,6 @@ public class RestGlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No such file exception: " + e.getMessage());
     }
     private void logErrorDetail(Exception e) {
-        log.error("Error detail: "+ e.getMessage());
+        log.error("Error detail: {}", e.getMessage());
     }
 }
