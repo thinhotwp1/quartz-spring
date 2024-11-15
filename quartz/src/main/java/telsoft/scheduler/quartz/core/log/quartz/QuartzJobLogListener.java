@@ -3,8 +3,11 @@ package telsoft.scheduler.quartz.core.log.quartz;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Component;
+import telsoft.scheduler.quartz.core.entity.JobParam;
+import telsoft.scheduler.quartz.core.service.JobService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +17,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -21,6 +25,9 @@ import java.util.Map;
 public class QuartzJobLogListener implements JobListener {
 
     private static final Logger logger = LoggerFactory.getLogger(QuartzJobLogListener.class);
+
+    @Autowired
+    JobService jobService;
 
     @Override
     public String getName() {
@@ -56,10 +63,8 @@ public class QuartzJobLogListener implements JobListener {
     }
 
     public void logToFile(JobExecutionContext context, String message) {
-        Map<String, Object> param = context.getJobDetail().getJobDataMap();
-
-        String jobAlias = param.get("jobAlias").toString().trim().replaceAll(" ", "-");
         String jobId = context.getJobDetail().getKey().getName();
+        String jobAlias = jobService.getJobDetail(jobId).getJobAlias().trim().replaceAll(" ", "-");
 
         String logFileName = "logs/" + jobAlias + "/" + jobId + "_" + LocalDate.now().format(DateTimeFormatter.ISO_DATE) + ".log";
         Path logFilePath = Paths.get(logFileName);

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Description;
 import telsoft.scheduler.quartz.core.log.quartz.QuartzJobLogListener;
 
 @Configuration
-@Description("Config Scheduler, logging,...")
+@Description("Config AOP: init, logging,...")
 public class QuartzConfig {
     @Autowired
     private Scheduler scheduler;

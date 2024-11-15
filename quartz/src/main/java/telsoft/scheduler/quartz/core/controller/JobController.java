@@ -47,14 +47,14 @@ public class JobController {
     }
 
     @PostMapping("/pause")
-    public ResponseEntity<String> pauseJob(@RequestParam String jobId) throws SchedulerException {
-        jobService.pauseJob(jobId);
+    public ResponseEntity<String> pauseJob(@RequestBody List<String> jobIds) throws SchedulerException {
+        jobService.pauseJob(jobIds);
         return ResponseEntity.ok("Job paused successfully.");
     }
 
     @PostMapping("/start")
-    public ResponseEntity<String> startJob(@RequestParam String jobId) throws SchedulerException {
-        jobService.startJob(jobId);
+    public ResponseEntity<String> startJob(@RequestBody List<String> jobIds) throws SchedulerException {
+        jobService.startJob(jobIds);
         return ResponseEntity.ok("Job started successfully.");
     }
 

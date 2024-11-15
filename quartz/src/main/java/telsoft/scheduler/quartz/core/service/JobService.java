@@ -72,18 +72,13 @@ public class JobService {
         // Load jobClass by classpath
         Class<? extends Job> jobClass = (Class<? extends Job>) Class.forName(createJobRequest.getClasspath());
 
-        // Add default jobData
-        Map<String, String> jobData = new HashMap<>();
-        jobData.put("jobAlias", createJobRequest.getJobAlias());
-        jobData.put("debug", String.valueOf(createJobRequest.isDebug()));
-
         // Build Job
         return JobBuilder.newJob(jobClass)
                 .withIdentity(jobId, createJobRequest.getGroup())
                 .withDescription(createJobRequest.getDescription())
-                .usingJobData(new JobDataMap(jobData))
-                .storeDurably(true)  // Đảm bảo job được lưu trong scheduler
-                .requestRecovery(true)  // Bật chế độ tự phục hồi job nếu có lỗi
+                .usingJobData(new JobDataMap())
+                .storeDurably(true)  // Save to database
+                .requestRecovery(true)  // Recovery if error
                 .build();
     }
 
@@ -205,22 +200,30 @@ public class JobService {
         }
     }
 
-    public void pauseJob(String jobId) throws SchedulerException {
-        Optional<telsoft.scheduler.quartz.core.entity.JobDetail> jobDatabase = jobDetailRepository.findById(jobId);
-        if (jobDatabase.isEmpty())
-            throw new NotFoundException("Not found job with jobId: " + jobId);
+    public void pauseJob(List<String> jobIds) {
+        List<telsoft.scheduler.quartz.core.entity.JobDetail> jobDatabases = jobDetailRepository.findAllById(jobIds);
 
-        JobKey jobKey = new JobKey(jobId, jobDatabase.get().getJobGroup());
-        scheduler.pauseJob(jobKey);
+        // Pause jobs
+        jobDatabases.forEach(job -> {
+            try {
+                scheduler.pauseJob(new JobKey(job.getJobName(), job.getJobGroup()));
+            } catch (SchedulerException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    public void startJob(String jobId) throws SchedulerException {
-        Optional<telsoft.scheduler.quartz.core.entity.JobDetail> jobDatabase = jobDetailRepository.findById(jobId);
-        if (jobDatabase.isEmpty())
-            throw new NotFoundException("Not found job with jobId: " + jobId);
+    public void startJob(List<String> jobIds) {
+        List<telsoft.scheduler.quartz.core.entity.JobDetail> jobDatabases = jobDetailRepository.findAllById(jobIds);
 
-        JobKey jobKey = new JobKey(jobId, jobDatabase.get().getJobGroup());
-        scheduler.resumeJob(jobKey);
+        // Start jobs
+        jobDatabases.forEach(job -> {
+            try {
+                scheduler.resumeJob(new JobKey(job.getJobName(), job.getJobGroup()));
+            } catch (SchedulerException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public ResponseEntity<?> updateStartupMode(StartupModeRequest startupModeRequest) throws SchedulerException {
@@ -252,5 +255,17 @@ public class JobService {
 
     public List<JobParam> findParamsByJobId(String jobId) {
         return jobParamRepository.findAllByJobName(jobId);
+    }
+
+    public Map<String, Object> getMapParamsByJobId(String jobId) {
+        Map<String, Object> map = new HashMap<>();
+
+        List<JobParam> jobParams = jobParamRepository.findAllByJobName(jobId);
+
+        // Add params to map
+        for (JobParam param : jobParams) {
+            map.put(param.getParamName(), param.getParamValue());
+        }
+        return map;
     }
 }
