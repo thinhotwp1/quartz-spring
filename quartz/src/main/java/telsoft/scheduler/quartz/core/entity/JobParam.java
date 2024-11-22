@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import telsoft.scheduler.quartz.core.enums.ParamType;
 
-import static jakarta.persistence.GenerationType.AUTO;
-
 @Entity
 @Table(name = "QRTZ_JOB_PARAM")
 @Getter
@@ -16,8 +14,7 @@ import static jakarta.persistence.GenerationType.AUTO;
 public class JobParam extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = AUTO, generator = "QRTZ_JOB_PARAM_SEQ")
-    @SequenceGenerator(name = "QRTZ_JOB_PARAM_SEQ", sequenceName = "QRTZ_JOB_PARAM_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
 

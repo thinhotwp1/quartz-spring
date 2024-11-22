@@ -8,9 +8,9 @@
         <version>3.3.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>example.demo</groupId>
-    <artifactId>quartz</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>telsoft.scheduler</groupId>
+    <artifactId>scheduler-quartz</artifactId>
+    <version>1.0.0</version>
     <name>quartz</name>
     <description>quartz</description>
     <url/>

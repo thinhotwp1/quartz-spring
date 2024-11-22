@@ -124,17 +124,17 @@ public class UserService implements UserDetailsService {
             throw new AccessDeniedException("You are not admin");
     }
 
-    public void delete(RegisterRequest request) {
+    public void delete(String userName) {
         // Validate
-        if (StringUtils.isEmpty(request.getUserName()))
+        if (StringUtils.isEmpty(userName))
             throw new NullPointerException("Username is not null !");
 
         // check admin user
         adminRoleCheck();
 
-        Optional<User> user = userRepository.findById(request.getUserName());
+        Optional<User> user = userRepository.findById(userName);
         if (user.isEmpty())
-            throw new UsernameNotFoundException("Not found user name: " + request.getUserName());
+            throw new UsernameNotFoundException("Not found user name: " + userName);
 
         userRepository.delete(user.get());
     }

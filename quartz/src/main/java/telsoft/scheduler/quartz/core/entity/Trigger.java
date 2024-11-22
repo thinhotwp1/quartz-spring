@@ -68,5 +68,28 @@ public class Trigger extends BaseEntity {
     @Transient
     private Set<CronTrigger> cronTriggers;
 
+    @Override
+    public String toString() {
+        return "{" +
+                "triggerName:'" + triggerName + '\'' +
+                ", triggerGroup:'" + triggerGroup + '\'' +
+                ", jobName:'" + jobName + '\'' +
+                ", jobGroup:'" + jobGroup + '\'' +
+                ", description:'" + description + '\'' +
+                ", nextFireTime:" + nextFireTime +
+                ", prevFireTime:" + prevFireTime +
+                ", priority:" + priority +
+                ", triggerState:'" + triggerState + '\'' +
+                ", triggerType:'" + triggerType + '\'' +
+                ", startTime:" + startTime +
+                ", endTime:" + endTime +
+                ", calendarName:'" + calendarName + '\'' +
+                ", misfireInstr:" + misfireInstr +
+                ", jobData:'" + jobData + '\'' +
+                ", schedName:'" + schedName + '\'' +
+                ", simpleTriggers:" + simpleTriggers +
+                ", cronTriggers:" + cronTriggers +
+                '}';
+    }
 }
 

@@ -6,5 +6,6 @@ import telsoft.scheduler.quartz.core.enums.ParamType;
 @Data
 public class ParamJobDTO {
     private ParamType paramType;
-    private String paramValue;
+    private String paramName;
+    private Object paramValue;
 }

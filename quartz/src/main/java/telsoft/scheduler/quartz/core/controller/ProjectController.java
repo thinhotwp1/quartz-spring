@@ -19,15 +19,11 @@ public class ProjectController {
     public ResponseEntity<?> getAllProject() throws SchedulerException, NotFoundException {
         return ResponseEntity.ok(projectService.getAllProject());
     }
-//    @GetMapping("/get-by-name")
-//    public ResponseEntity<?> getProjectByName(@RequestParam String projectName) throws NotFoundException {
-//        return ResponseEntity.ok(projectService.getProjectByName(projectName));
-//    }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createProject(@RequestBody Project project) throws SchedulerException{
-        projectService.createProject(project);
-        return ResponseEntity.ok("Project created successfully: " + project.getProjectName());
+    public ResponseEntity<?> createProject(@RequestBody String projectName) throws SchedulerException{
+        projectService.createProject(projectName);
+        return ResponseEntity.ok("Project created successfully: " + projectName);
     }
 }
 

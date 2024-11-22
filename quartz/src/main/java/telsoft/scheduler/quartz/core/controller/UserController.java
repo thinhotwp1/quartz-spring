@@ -33,8 +33,8 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<?> removeUser(@RequestBody RegisterRequest registerRequest) {
-        userService.delete(registerRequest);
+    public ResponseEntity<?> removeUser(@RequestBody String userName) {
+        userService.delete(userName);
         return ResponseEntity.ok("Success");
     }
 

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import telsoft.scheduler.quartz.core.entity.JobHistory;
 import telsoft.scheduler.quartz.core.entity.JobParam;
 import telsoft.scheduler.quartz.core.enums.ParamType;
 import telsoft.scheduler.quartz.core.repository.*;
@@ -17,7 +18,6 @@ import telsoft.scheduler.quartz.core.dto.StartupModeRequest;
 import telsoft.scheduler.quartz.core.dto.TriggerDetail;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class JobService {
@@ -31,19 +31,13 @@ public class JobService {
     TriggerService triggerService;
 
     @Autowired
-    private CronTriggerRepository cronTriggerRepository;
-
-    @Autowired
     JobDetailRepository jobDetailRepository;
 
     @Autowired
-    SimpleTriggerRepository simpleTriggerRepository;
-
-    @Autowired
-    TriggerRepository triggerRepository;
-
-    @Autowired
     JobParamRepository jobParamRepository;
+
+    @Autowired
+    JobHistoryRepository jobHistoryRepository;
 
 
     public void createGenericJob(CreateJobRequest createJobRequest) throws SchedulerException, ClassNotFoundException, ValidationException, InterruptedException {
@@ -78,7 +72,7 @@ public class JobService {
                 .withDescription(createJobRequest.getDescription())
                 .usingJobData(new JobDataMap())
                 .storeDurably(true)  // Save to database
-                .requestRecovery(true)  // Recovery if error
+                .requestRecovery(false)  // Recovery if error
                 .build();
     }
 
@@ -122,26 +116,28 @@ public class JobService {
 
     private void addJobParam(CreateJobRequest createJobRequest, String jobId) {
         telsoft.scheduler.quartz.core.entity.JobDetail jobSaved = jobDetailRepository.findById(jobId).get();
+
         // Add information for job
         jobSaved.setProjectName(createJobRequest.getProjectName());
         jobSaved.setJobAlias(createJobRequest.getJobAlias());
         jobSaved.setIsDebug(createJobRequest.isDebug());
+        jobSaved.setIsDisable(false);
 
         List<JobParam> paramList = new ArrayList<>();
-        for (Map.Entry<String, ParamJobDTO> entry : createJobRequest.getParamsJob().entrySet()) {
-            paramList.add(buildJobParam(jobSaved, entry.getKey(), entry.getValue().getParamType(), entry.getValue().getParamValue()));
+        for (ParamJobDTO jobParam : createJobRequest.getParamsJob()) {
+            paramList.add(buildJobParam(jobSaved.getJobName(), jobParam.getParamType(), jobParam.getParamName(), jobParam.getParamValue().toString()));
         }
 
         jobParamRepository.saveAllAndFlush(paramList);
         jobDetailRepository.saveAndFlush(jobSaved);
     }
 
-    private JobParam buildJobParam(telsoft.scheduler.quartz.core.entity.JobDetail jobDetail, String paramName, ParamType paramType, Object defaultValue) {
+    private JobParam buildJobParam(String jobId, ParamType paramType, String paramName, String defaultValue) {
         return JobParam.builder()
-                .jobName(jobDetail.getJobName())
+                .jobName(jobId)
                 .paramName(paramName)
                 .paramType(paramType)
-                .paramValue(defaultValue.toString())
+                .paramValue(defaultValue)
                 .build();
     }
 
@@ -160,23 +156,33 @@ public class JobService {
         jobDetailDatabase.setJobParams(jobParams);
 
         // Set triggers for job
-        Set<telsoft.scheduler.quartz.core.entity.Trigger> triggers = getTriggersDetail(jobDetailDatabase.getJobName());
+        Set<telsoft.scheduler.quartz.core.entity.Trigger> triggers = triggerService.getTriggersDetail(jobDetailDatabase.getJobName());
         jobDetailDatabase.setTriggers(triggers);
+
         return jobDetailDatabase;
     }
 
-    private Set<telsoft.scheduler.quartz.core.entity.Trigger> getTriggersDetail(String jobId) {
-        Set<telsoft.scheduler.quartz.core.entity.Trigger> triggers = triggerService.getTriggersListByJobName(jobId);
-        for (telsoft.scheduler.quartz.core.entity.Trigger trigger : triggers) {
-            trigger.setSimpleTriggers(simpleTriggerRepository.findByTriggerName(trigger.getTriggerName()));
-            trigger.setCronTriggers(cronTriggerRepository.findAllByTriggerName(trigger.getTriggerName()));
-        }
-        return triggers;
-    }
 
     private void validateRequest(CreateJobRequest request) throws ValidationException {
         if (projectService.getProjectByName(request.getProjectName()).isEmpty())
             throw new ValidationException("Not found project name: " + request.getProjectName());
+    }
+
+    public void disableJob(List<String> jobIds) {
+        pauseJob(jobIds);
+        for (String jobId : jobIds) {
+            telsoft.scheduler.quartz.core.entity.JobDetail jobDetail = getJobDetail(jobId);
+            jobDetail.setIsDisable(true);
+            jobDetailRepository.saveAndFlush(jobDetail);
+        }
+    }
+
+    public void enableJob(List<String> jobIds) {
+        for (String jobId : jobIds) {
+            telsoft.scheduler.quartz.core.entity.JobDetail jobDetail = getJobDetail(jobId);
+            jobDetail.setIsDisable(false);
+            jobDetailRepository.saveAndFlush(jobDetail);
+        }
     }
 
     public void deleteJobById(List<String> jobIds) {
@@ -187,11 +193,11 @@ public class JobService {
 
                 switch (trigger.getTriggerType()) {
                     case "SIMPLE":
-                        simpleTriggerRepository.deleteById(trigger.getTriggerName());
+                        triggerService.deleteSimpleTriggerById(trigger.getTriggerName());
                     case "CRON":
-                        cronTriggerRepository.deleteById(trigger.getTriggerName());
+                        triggerService.deleteCronTriggerById(trigger.getTriggerName());
                 }
-                triggerRepository.deleteById(trigger.getTriggerName());
+                triggerService.deleteById(trigger.getTriggerName());
             }
 
             jobDetailRepository.deleteById(jobId);
@@ -231,7 +237,7 @@ public class JobService {
         return ResponseEntity.ok("Startup mode updated successfully.");
     }
 
-    public List<telsoft.scheduler.quartz.core.entity.JobDetail> getJobs(String projectName, String jobName, String jobGroup) throws NotFoundException, SchedulerException {
+    public List<telsoft.scheduler.quartz.core.entity.JobDetail> getJobs(String projectName, String jobName, String jobGroup, boolean isDisable) throws NotFoundException, SchedulerException {
         telsoft.scheduler.quartz.core.entity.JobDetail exampleJobDetail = new telsoft.scheduler.quartz.core.entity.JobDetail();
 
         // Create example for search
@@ -245,16 +251,13 @@ public class JobService {
         if (jobGroup != null && !jobGroup.isEmpty()) {
             exampleJobDetail.setJobGroup(jobGroup);
         }
+        exampleJobDetail.setIsDisable(isDisable);
 
         // Search by example
         ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreNullValues();
         Example<telsoft.scheduler.quartz.core.entity.JobDetail> example = Example.of(exampleJobDetail, matcher);
 
         return jobDetailRepository.findAll(example);
-    }
-
-    public List<JobParam> findParamsByJobId(String jobId) {
-        return jobParamRepository.findAllByJobName(jobId);
     }
 
     public Map<String, Object> getMapParamsByJobId(String jobId) {
@@ -267,5 +270,34 @@ public class JobService {
             map.put(param.getParamName(), param.getParamValue());
         }
         return map;
+    }
+
+    public void saveJobHistory(JobHistory jobHistory) throws Exception {
+        jobHistoryRepository.saveAndFlush(jobHistory);
+    }
+
+    public Object getJobHistory(String jobId, int limit) {
+        List<JobHistory> jobHistories = jobHistoryRepository.findAllByJobIdOrderByStartedAtAsc(jobId);
+        return jobHistories;
+    }
+
+    public void updateParamJob(String jobId, ParamType paramType, String key, Object value) {
+        JobParam jobParam = JobParam
+                .builder()
+                .jobName(jobId)
+                .paramType(paramType)
+                .paramName(key)
+                .paramValue(value.toString())
+                .build();
+        jobParamRepository.saveAndFlush(jobParam);
+    }
+
+    public void updateListParamJob(String jobId, List<ParamJobDTO> paramJobList) {
+        List<JobParam> jobParams = new ArrayList<>();
+
+        paramJobList.forEach(jobParam ->
+                jobParams.add(buildJobParam(jobId, jobParam.getParamType(), jobParam.getParamName(), jobParam.getParamValue().toString())));
+
+        jobParamRepository.saveAllAndFlush(jobParams);
     }
 }

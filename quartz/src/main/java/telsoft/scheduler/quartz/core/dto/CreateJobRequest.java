@@ -16,10 +16,10 @@ public class CreateJobRequest {
     private String jobAlias;
     @NonNull
     private String group;
+    private boolean debug;
     private String description;
     private List<TriggerDetail> triggerDetailList;
     private boolean autoStart;
-    private boolean debug;
-    private Map<String, ParamJobDTO> paramsJob;
+    private List<ParamJobDTO> paramsJob;
 }
 

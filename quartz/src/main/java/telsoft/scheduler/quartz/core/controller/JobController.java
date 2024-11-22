@@ -36,24 +36,31 @@ public class JobController {
 
     @GetMapping("/get")
     public ResponseEntity<?> getJobs(@RequestParam(required = false) String projectName,
-                                     @RequestParam(required = false) String jobName,
-                                     @RequestParam(required = false) String jobGroup) throws SchedulerException {
-        return ResponseEntity.ok(jobService.getJobs(projectName, jobName, jobGroup));
+                                     @RequestParam(required = false) String jobId,
+                                     @RequestParam(required = false) String jobGroup,
+                                     @RequestParam(required = false, defaultValue = "false") boolean isDisable) throws SchedulerException {
+        return ResponseEntity.ok(jobService.getJobs(projectName, jobId, jobGroup, isDisable));
     }
 
     @GetMapping("/get-detail")
-    public ResponseEntity<?> getJobDetail(@RequestParam String jobId) throws SchedulerException {
+    public ResponseEntity<?> getJobDetail(@RequestParam String jobId) {
         return ResponseEntity.ok(jobService.getJobDetail(jobId));
     }
 
+    @GetMapping("/get-job-history")
+    public ResponseEntity<?> getJobHistory(@RequestParam String jobId,
+                                           @RequestParam int limit) {
+        return ResponseEntity.ok(jobService.getJobHistory(jobId, limit));
+    }
+
     @PostMapping("/pause")
-    public ResponseEntity<String> pauseJob(@RequestBody List<String> jobIds) throws SchedulerException {
+    public ResponseEntity<String> pauseJob(@RequestBody List<String> jobIds) {
         jobService.pauseJob(jobIds);
         return ResponseEntity.ok("Job paused successfully.");
     }
 
     @PostMapping("/start")
-    public ResponseEntity<String> startJob(@RequestBody List<String> jobIds) throws SchedulerException {
+    public ResponseEntity<String> startJob(@RequestBody List<String> jobIds) {
         jobService.startJob(jobIds);
         return ResponseEntity.ok("Job started successfully.");
     }
@@ -61,6 +68,16 @@ public class JobController {
     @PostMapping("/delete")
     public ResponseEntity<?> deleteJob(@RequestBody List<String> jobIds) {
         jobService.deleteJobById(jobIds);
+        return ResponseEntity.ok("Success");
+    }
+    @PostMapping("/disable")
+    public ResponseEntity<?> disableJob(@RequestBody List<String> jobIds) {
+        jobService.disableJob(jobIds);
+        return ResponseEntity.ok("Success");
+    }
+    @PostMapping("/enable")
+    public ResponseEntity<?> enableJob(@RequestBody List<String> jobIds) {
+        jobService.enableJob(jobIds);
         return ResponseEntity.ok("Success");
     }
 

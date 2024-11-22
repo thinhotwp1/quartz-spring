@@ -23,7 +23,9 @@ public class ProjectService {
         return projectRepository.findAllBySchedName(scheduler.getSchedulerName());
     }
 
-    public void createProject(Project project) throws SchedulerException {
+    public void createProject(String projectName) throws SchedulerException {
+        Project project = new Project();
+        project.setProjectName(projectName);
         project.setSchedName(scheduler.getSchedulerName());
         projectRepository.saveAndFlush(project);
     }

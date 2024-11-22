@@ -27,5 +27,12 @@ public class CronTrigger extends BaseEntity {
     @Column(name = "SCHED_NAME", nullable = false, length = 120)
     private String schedName;
 
+    @Override
+    public String toString() {
+        return "{" +
+                "triggerName='" + triggerName + '\'' +
+                ", cronExpression='" + cronExpression + '\'' +
+                '}';
+    }
 }
 

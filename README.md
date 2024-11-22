@@ -3,7 +3,7 @@
 
 ### 1️⃣ Initialize Database
 
-- 📂 Go to the `/database/` folder and select your preferred database: **MySQL**, **Oracle**, **H2**, or **PostgreSQL**.
+- 📂 Go to the `/init_database` folder and select your preferred database: **MySQL**, **Oracle**, **H2**, or **PostgreSQL**.
 - 📄 Copy and execute the database initialization script for your chosen database.
 
 ### 2️⃣ Configure Application Properties
@@ -28,5 +28,5 @@
 
 ### 3️⃣ Run the Project
 
-- ▶️ Start the project using your preferred method, for example, `mvn spring-boot:run` if you are using Maven.
+- ▶️ Start the project, for example, `java -jar target/scheduler-quartz-1.0.0.jar` if you are using Maven.
 

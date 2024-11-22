@@ -25,7 +25,7 @@ public class JobDetail extends BaseEntity {
     @Column(name = "PROJECT_NAME", length = 200)
     private String projectName;
 
-    @Column(name = "SCHED_NAME", nullable = false, length = 120)
+    @Column(name = "SCHED_NAME", nullable = false)
     private String schedName;
 
     @Column(name = "JOB_GROUP", nullable = false, length = 200)
@@ -37,19 +37,22 @@ public class JobDetail extends BaseEntity {
     @Column(name = "JOB_CLASS_NAME", nullable = false, length = 250)
     private String jobClassName;
 
-    @Column(name = "IS_DURABLE", nullable = false, columnDefinition = "tinyint", length = 1)
+    @Column(name = "IS_DURABLE", nullable = false)
     private Boolean isDurable;
 
-    @Column(name = "IS_DEBUG", columnDefinition = "tinyint", length = 1)
+    @Column(name = "IS_DEBUG")
     private Boolean isDebug;
 
-    @Column(name = "IS_NONCONCURRENT", nullable = false, columnDefinition = "tinyint", length = 1)
+    @Column(name = "IS_NONCONCURRENT", nullable = false)
     private Boolean isNonconcurrent;
 
-    @Column(name = "IS_UPDATE_DATA", nullable = false, columnDefinition = "tinyint", length = 1)
+    @Column(name = "IS_UPDATE_DATA", nullable = false)
     private Boolean isUpdateData;
 
-    @Column(name = "REQUESTS_RECOVERY", nullable = false, columnDefinition = "tinyint", length = 1)
+    @Column(name = "IS_DISABLE")
+    private Boolean isDisable;
+
+    @Column(name = "REQUESTS_RECOVERY", nullable = false)
     private Boolean requestsRecovery;
 
     @JsonIgnore

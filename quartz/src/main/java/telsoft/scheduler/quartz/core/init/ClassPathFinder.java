@@ -30,22 +30,23 @@ public class ClassPathFinder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // 1. Lấy tất cả các classpath của các bean kiểu Job từ ApplicationContext
-        Set<String> scannedClasspaths = applicationContext.getBeansOfType(Job.class).values().stream()
+        Set<String> scannedClasspath = applicationContext.getBeansOfType(Job.class).values().stream()
                 .map(job -> job.getClass().getName())
                 .collect(Collectors.toSet());
 
         // 2. Lấy tất cả các classpath đang có trong database theo schedulerName
-        Set<String> dbClassPaths = classpathRepository.findAllBySchedName(scheduler.getSchedulerName()).stream()
+        Set<String> dbClassPaths = classpathRepository.findAllBySchedName(scheduler.getSchedulerName())
+                .stream()
                 .map(ClassPath::getClassPath)
                 .collect(Collectors.toSet());
 
         // 3. Xóa các classpath không còn hiệu lực (có trong db nhưng không quét thấy)
         dbClassPaths.stream()
-                .filter(classpath -> !scannedClasspaths.contains(classpath))
+                .filter(classpath -> !scannedClasspath.contains(classpath))
                 .forEach(classpath -> classpathRepository.deleteById(classpath));
 
         // 4. Thêm các classpath mới vào database nếu chúng chưa có
-        scannedClasspaths.stream()
+        scannedClasspath.stream()
                 .filter(classpath -> !dbClassPaths.contains(classpath))
                 .forEach(classpath -> {
                     try {
