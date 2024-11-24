@@ -1,7 +1,7 @@
 package telsoft.scheduler.quartz.manager.service;
 
-import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import telsoft.scheduler.quartz.manager.entity.Project;
 import telsoft.scheduler.quartz.manager.exception.NotFoundException;
@@ -12,20 +12,20 @@ import java.util.*;
 @Service
 public class ProjectService {
 
-    @Autowired
-    private Scheduler scheduler;
+    @Value("${quartz.scheduler-name}")
+    private String schedulerName;
 
     @Autowired
     ProjectRepository projectRepository;
 
-    public List<Project> getAllProject() throws SchedulerException, NotFoundException {
-        return projectRepository.findAllBySchedName(scheduler.getSchedulerName());
+    public List<Project> getAllProject() throws  NotFoundException {
+        return projectRepository.findAllBySchedName(schedulerName);
     }
 
-    public void createProject(String projectName) throws SchedulerException {
+    public void createProject(String projectName)  {
         Project project = new Project();
         project.setProjectName(projectName);
-        project.setSchedName(scheduler.getSchedulerName());
+        project.setSchedName(schedulerName);
         projectRepository.saveAndFlush(project);
     }
 

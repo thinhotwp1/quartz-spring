@@ -37,8 +37,8 @@ public class JobHistory extends BaseEntity {
     @Column(name = "JOB_DATA")
     private String jobData;
 
-    @Column(name = "START_TYPE", length = 200)
-    private StartType startType;
+    @Column(name = "TRIGGER_TYPE", length = 200)
+    private String triggerType;
 
     @Column(name = "JOB_TRIGGER", nullable = false)
     private String jobTrigger;

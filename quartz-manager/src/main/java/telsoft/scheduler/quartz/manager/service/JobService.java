@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Description;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.http.ResponseEntity;
+import telsoft.scheduler.quartz.manager.enums.TriggerContains;
 import org.springframework.stereotype.Service;
 import telsoft.scheduler.quartz.manager.entity.JobHistory;
 import telsoft.scheduler.quartz.manager.entity.JobParam;
@@ -32,7 +32,7 @@ import java.util.*;
 @Description("This class using for manage jobs")
 public class JobService {
     
-    @Value("${spring.quartz.scheduler-name}")
+    @Value("${quartz.scheduler-name}")
     private String schedulerName;
 
     @Autowired
@@ -81,28 +81,28 @@ public class JobService {
                         .jobData("#")
                         .isDisable(false)
                         .description(createJobRequest.getDescription())
-                        .isDurable(true)
+                        .isDurable(false)
                         .isNonconcurrent(false)
                         .isUpdateData(false)
-                        .requestsRecovery(false)
+                        .requestsRecovery(true)
                         .projectName(createJobRequest.getProjectName())
                         .isDebug(createJobRequest.isDebug())
-                        .schedName(scheduler.getSchedulerName())
+                        .schedName(schedulerName)
                         .build();
 
         jobDetailRepository.saveAndFlush(jobDetail);
     }
 
-    private void saveTriggers(String jobId, CreateJobRequest createJobRequest) throws InterruptedException, SchedulerException {
+    private void saveTriggers(String jobId, CreateJobRequest createJobRequest) throws InterruptedException{
         for (TriggerDetail triggerDetailInfo : createJobRequest.getTriggerDetailList()) {
 
             switch (triggerDetailInfo.getTriggerType()) {
+
                 case SIMPLE -> saveSimpleTrigger(jobId, createJobRequest, triggerDetailInfo);
 
                 case CRON -> saveCronTrigger(jobId, createJobRequest, triggerDetailInfo);
 
-                default ->
-                        throw new NotFoundException("Not support trigger type: " + triggerDetailInfo.getTriggerType());
+                default -> throw new NotFoundException("Not support trigger type: " + triggerDetailInfo.getTriggerType());
             }
 
             // Sleep 10 millisecond for trigger identity
@@ -111,15 +111,7 @@ public class JobService {
 
     }
 
-    private void validateCronTrigger(TriggerDetail triggerDetailInfo) {
-        if (triggerDetailInfo.getCronExpression() == null)
-            throw new ValidateException("Not found cron expression for CRON trigger");
-    }
-
-    private void saveCronTrigger(String jobId, CreateJobRequest createJobRequest, TriggerDetail triggerDetailInfo) throws SchedulerException {
-        // Validate Cron trigger
-        validateCronTrigger(triggerDetailInfo);
-
+    private void saveSimpleTrigger(String jobId, CreateJobRequest createJobRequest, TriggerDetail triggerDetailInfo)  {
         long startTime = new Date().getTime();
         String triggerName = "trigger_" + System.currentTimeMillis();
 
@@ -132,42 +124,7 @@ public class JobService {
                         .nextFireTime(startTime)
                         .startTime(startTime)
                         .endTime(0L)
-                        .misfireInstr(0)
-                        .jobData("")
-                        .priority(5)
-                        .prevFireTime(-1L)
-                        .triggerState(String.valueOf(TriggerState.PAUSE))
-                        .triggerType(String.valueOf(TriggerType.CRON))
-                        .jobName(jobId)
-                        .jobGroup(createJobRequest.getGroup())
-                        .schedName(scheduler.getSchedulerName())
-                        .description(triggerDetailInfo.getDescription())
-                        .build());
-
-
-        triggerService.saveCronTrigger(telsoft.scheduler.quartz.manager.entity.CronTrigger.builder()
-                .cronExpression(triggerDetailInfo.getCronExpression())
-                .timeZoneId("Asia/Saigon")
-                .schedName(scheduler.getSchedulerName())
-                .triggerGroup(createJobRequest.getGroup())
-                .triggerName(triggerName)
-                .build());
-    }
-
-    private void saveSimpleTrigger(String jobId, CreateJobRequest createJobRequest, TriggerDetail triggerDetailInfo) throws SchedulerException {
-        long startTime = new Date().getTime();
-        String triggerName = "trigger_" + System.currentTimeMillis();
-
-        triggerService.saveTrigger(
-                telsoft.scheduler.quartz.manager.entity.Trigger.builder()
-                        .triggerName(triggerName)
-                        .triggerGroup(createJobRequest.getGroup())
-                        .jobGroup(createJobRequest.getGroup())
-                        .description(triggerDetailInfo.getDescription())
-                        .nextFireTime(startTime)
-                        .startTime(startTime)
-                        .endTime(0L)
-                        .misfireInstr(0)
+                        .misfireInstr(TriggerContains.SIMPLE_MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT)
                         .jobData("")
                         .priority(5)
                         .prevFireTime(-1L)
@@ -175,19 +132,60 @@ public class JobService {
                         .triggerType(String.valueOf(TriggerType.SIMPLE))
                         .jobName(jobId)
                         .jobGroup(createJobRequest.getGroup())
-                        .schedName(scheduler.getSchedulerName())
+                        .schedName(schedulerName)
                         .description(triggerDetailInfo.getDescription())
                         .build());
 
-        SimpleTrigger simpleTrigger = new SimpleTrigger().builder()
+        SimpleTrigger simpleTrigger = SimpleTrigger.builder()
                 .repeatInterval((long) triggerDetailInfo.getIntervalSeconds() * 1000)
                 .timesTriggered(0L)
                 .repeatCount(-1L)
                 .triggerName(triggerName)
-                .schedName(scheduler.getSchedulerName())
+                .schedName(schedulerName)
                 .triggerGroup(createJobRequest.getGroup())
                 .build();
         triggerService.saveSimpleTrigger(simpleTrigger);
+    }
+
+    private void validateCronTrigger(TriggerDetail triggerDetailInfo) {
+        if (triggerDetailInfo.getCronExpression() == null)
+            throw new ValidateException("Not found cron expression for CRON trigger");
+    }
+
+    private void saveCronTrigger(String jobId, CreateJobRequest createJobRequest, TriggerDetail triggerDetailInfo)  {
+        // Validate Cron trigger
+        validateCronTrigger(triggerDetailInfo);
+
+        long startTime = new Date().getTime();
+        String triggerName = "trigger_" + System.currentTimeMillis();
+
+        triggerService.saveTrigger(telsoft.scheduler.quartz.manager.entity.Trigger.builder()
+                        .triggerName(triggerName)
+                        .triggerGroup(createJobRequest.getGroup())
+                        .jobGroup(createJobRequest.getGroup())
+                        .description(triggerDetailInfo.getDescription())
+                        .nextFireTime(startTime)
+                        .startTime(startTime)
+                        .endTime(0L)
+                        .misfireInstr(TriggerContains.CRON_MISFIRE_INSTRUCTION_DO_NOTHING)
+                        .jobData("")
+                        .priority(5)
+                        .prevFireTime(-1L)
+                        .triggerState(String.valueOf(TriggerState.PAUSE))
+                        .triggerType(String.valueOf(TriggerType.CRON))
+                        .jobName(jobId)
+                        .jobGroup(createJobRequest.getGroup())
+                        .schedName(schedulerName)
+                        .description(triggerDetailInfo.getDescription())
+                        .build());
+
+        triggerService.saveCronTrigger(telsoft.scheduler.quartz.manager.entity.CronTrigger.builder()
+                .cronExpression(triggerDetailInfo.getCronExpression())
+                .timeZoneId("Asia/Saigon")
+                .schedName(schedulerName)
+                .triggerGroup(createJobRequest.getGroup())
+                .triggerName(triggerName)
+                .build());
     }
 
     private void addJobParam(CreateJobRequest createJobRequest, String jobId) {
@@ -282,21 +280,21 @@ public class JobService {
 
             jobDetailRepository.deleteById(jobId);
             jobParamRepository.deleteJobParamsByJobName(jobId);
+            jobHistoryRepository.deleteAllByJobId(jobId);
 
         }
     }
 
     public void pauseJob(List<String> jobIds) {
-        List<telsoft.scheduler.quartz.manager.entity.JobDetail> jobDatabases = jobDetailRepository.findAllById(jobIds);
-
-        // Pause jobs
-        jobDatabases.forEach(job -> {
-            try {
-                scheduler.pauseJob(new JobKey(job.getJobName(), job.getJobGroup()));
-            } catch (SchedulerException e) {
-                throw new RuntimeException(e);
+        for (String jobId : jobIds) {
+            Set<Trigger> triggerSet = triggerService.getTriggersListByJobName(jobId);
+            for (Trigger trigger : triggerSet) {
+                if (!trigger.getTriggerState().contains(JobState.PAUSE.toString())) {
+                    trigger.setTriggerState("PAUSED");
+                }
             }
-        });
+            triggerService.saveAllTriggers(triggerSet);
+        }
     }
 
     public void startJob(List<String> jobIds) {
@@ -311,16 +309,16 @@ public class JobService {
         }
     }
 
-    public ResponseEntity<?> updateStartupMode(StartupModeRequest startupModeRequest) throws SchedulerException {
-        scheduler.pauseJob(new JobKey(startupModeRequest.getJobName()));
-        return ResponseEntity.ok("Startup mode updated successfully.");
-    }
+    // public ResponseEntity<?> updateStartupMode(StartupModeRequest startupModeRequest)  {
+    //     scheduler.pauseJob(new JobKey(startupModeRequest.getJobName()));
+    //     return ResponseEntity.ok("Startup mode updated successfully.");
+    // }
 
-    public List<telsoft.scheduler.quartz.manager.entity.JobDetail> getJobs(String projectName, String jobName, String jobGroup, boolean isDisable) throws NotFoundException, SchedulerException {
+    public List<telsoft.scheduler.quartz.manager.entity.JobDetail> getJobs(String projectName, String jobName, String jobGroup, boolean isDisable) throws NotFoundException{
         telsoft.scheduler.quartz.manager.entity.JobDetail exampleJobDetail = new telsoft.scheduler.quartz.manager.entity.JobDetail();
 
         // Create example for search
-        exampleJobDetail.setSchedName(scheduler.getSchedulerName());
+        exampleJobDetail.setSchedName(schedulerName);
         if (projectName != null && !projectName.isEmpty()) {
             exampleJobDetail.setProjectName(projectName);
         }

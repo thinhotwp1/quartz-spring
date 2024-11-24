@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class CronTrigger extends BaseEntity {
+
     @Id
     @Column(name = "TRIGGER_NAME", nullable = false, length = 200)
     private String triggerName;

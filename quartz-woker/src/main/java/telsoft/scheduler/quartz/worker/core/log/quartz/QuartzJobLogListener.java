@@ -137,8 +137,10 @@ public class QuartzJobLogListener implements JobListener {
         StringBuilder messageTrigger = new StringBuilder("Trigger type: " + triggerType + ", data: ");
 
         if (triggerType.equals("SIMPLE")) {
+            context.put(JobContains.TRIGGER_TYPE,"SIMPLE");
             messageTrigger.append(jobTrigger.getSimpleTriggers().getRepeatInterval()).append(" milliseconds");
         } else if (triggerType.equals("CRON")) {
+            context.put(JobContains.TRIGGER_TYPE,"CRON");
             for (CronTrigger cronTrigger : jobTrigger.getCronTriggers()) {
                 messageTrigger.append("cronExpression: ").append(cronTrigger.getCronExpression());
             }
@@ -185,6 +187,7 @@ public class QuartzJobLogListener implements JobListener {
                     .log(context.get(JobContains.LOG).toString())
                     .instanceName(context.getScheduler().getSchedulerInstanceId())
                     .threadName(context.get(JobContains.THREAD_NAME).toString())
+                    .triggerType(context.get(JobContains.TRIGGER_TYPE).toString())
                     .jvmId(ManagementFactory.getRuntimeMXBean().getName().split("@")[0])
                     .error(error)
                     .build();

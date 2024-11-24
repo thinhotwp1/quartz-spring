@@ -1,6 +1,6 @@
 package telsoft.scheduler.quartz.manager.controller;
 
-import org.quartz.SchedulerException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +15,12 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/get")
-    public ResponseEntity<?> getAllProject() throws SchedulerException, NotFoundException {
+    public ResponseEntity<?> getAllProject() throws  NotFoundException {
         return ResponseEntity.ok(projectService.getAllProject());
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createProject(@RequestBody String projectName) throws SchedulerException{
+    public ResponseEntity<?> createProject(@RequestBody String projectName) {
         projectService.createProject(projectName);
         return ResponseEntity.ok("Project created successfully: " + projectName);
     }

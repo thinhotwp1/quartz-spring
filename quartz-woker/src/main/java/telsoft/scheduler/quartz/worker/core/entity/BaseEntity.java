@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Date;
 
@@ -37,8 +35,7 @@ public abstract class BaseEntity {
     protected void prePersist() {
         this.createDate = new Date();
         this.updateDate = new Date();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication != null ? authentication.getName()  : "Anonymous";
+        String username = "System";
         this.createBy = username;
         this.updateBy = username;
     }
@@ -46,7 +43,6 @@ public abstract class BaseEntity {
     @PreUpdate
     private void preUpdate() {
         this.updateDate = new Date();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        this.updateBy = authentication != null ? authentication.getName()  : "Anonymous";
+        this.updateBy = "System";
     }
 }

@@ -6,7 +6,7 @@ public class JobContains {
     public static final String FINISHED_AT = "FINISHED_AT";
     public static final String DURATION = "DURATION";
     public static final String JOB_ID = "JOB_ID";
-    public static final String START_TYPE = "START_TYPE";
+    public static final String TRIGGER_TYPE = "TRIGGER_TYPE";
     public static final String JOB_STATUS = "JOB_STATUS";
     public static final String JOB_DATA = "JOB_DATA";
     public static final String JOB_TRIGGER = "JOB_TRIGGER";

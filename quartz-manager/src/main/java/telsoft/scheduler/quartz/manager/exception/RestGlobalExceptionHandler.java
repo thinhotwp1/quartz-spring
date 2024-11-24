@@ -3,7 +3,7 @@ package telsoft.scheduler.quartz.manager.exception;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.xml.bind.ValidationException;
 import lombok.extern.log4j.Log4j2;
-import org.quartz.SchedulerException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -80,13 +80,6 @@ public class RestGlobalExceptionHandler {
         logErrorDetail(e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No such file exception: " + e.getMessage());
     }
-
-    @ExceptionHandler({SchedulerException.class})
-    public ResponseEntity<?> handler(SchedulerException e) {
-        logErrorDetail(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Scheduler exception: " + e.getMessage());
-    }
-
 
     private void logErrorDetail(Exception e) {
         log.error("Error: {}\nStackTrace: {}", e.getMessage(), e.getStackTrace());

@@ -1,0 +1,182 @@
+2024-11-24T09:37:44.363+07:00  INFO 4992 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732372846092 paused.
+2024-11-24T09:37:44.649+07:00  INFO 4992 --- [quartz-worker] [SpringApplicationShutdownHook] o.s.s.quartz.SchedulerFactoryBean        : Shutting down Quartz Scheduler
+2024-11-24T09:37:44.649+07:00  INFO 4992 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732372846092 shutting down.
+2024-11-24T09:37:44.649+07:00  INFO 4992 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732372846092 paused.
+2024-11-24T09:37:44.650+07:00  INFO 4992 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732372846092 shutdown complete.
+2024-11-24T09:37:44.651+07:00  INFO 4992 --- [quartz-worker] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-24T09:37:44.654+07:00  INFO 4992 --- [quartz-worker] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-24T09:37:44.656+07:00  INFO 4992 --- [quartz-worker] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-24T09:44:35.888+07:00  INFO 24092 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : Starting QuartzWokerApplication using Java 17.0.11 with PID 24092 (D:\ThinhLD\ocs2023\quartz-spring\quartz-woker\target\classes started by thinhld in D:\ThinhLD\ocs2023\quartz-spring\quartz-woker)
+2024-11-24T09:44:35.889+07:00  INFO 24092 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-11-24T09:44:35.918+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\thinhld\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/thinhld/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2024-11-24T09:44:35.918+07:00  INFO 24092 --- [quartz-worker] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-24T09:44:35.918+07:00  INFO 24092 --- [quartz-worker] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-24T09:44:36.760+07:00  INFO 24092 --- [quartz-worker] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-24T09:44:36.815+07:00  INFO 24092 --- [quartz-worker] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 16 JPA repository interfaces.
+2024-11-24T09:44:37.166+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-11-24T09:44:37.174+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-24T09:44:37.174+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2024-11-24T09:44:37.208+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-24T09:44:37.209+07:00  INFO 24092 --- [quartz-worker] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1291 ms
+2024-11-24T09:44:37.264+07:00  INFO 24092 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-24T09:44:37.352+07:00  INFO 24092 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d6671f2
+2024-11-24T09:44:37.353+07:00  INFO 24092 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-24T09:44:37.407+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-24T09:44:37.440+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-24T09:44:37.465+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-24T09:44:37.645+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-24T09:44:38.393+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-24T09:44:38.482+07:00  INFO 24092 --- [quartz-worker] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-24T09:44:38.526+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Using ConnectionProvider class 'org.quartz.utils.C3p0PoolingConnectionProvider' for data source 'blog'
+2024-11-24T09:44:38.537+07:00  INFO 24092 --- [quartz-worker] [MLog-Init-Reporter] com.mchange.v2.log.MLog                  : MLog clients using slf4j logging.
+2024-11-24T09:44:38.551+07:00  INFO 24092 --- [quartz-worker] [restartedMain] com.mchange.v2.c3p0.C3P0Registry         : Initializing c3p0-0.9.5.5 [built 11-December-2019 22:18:33 -0800; debug? true; trace: 10]
+2024-11-24T09:44:38.572+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2024-11-24T09:44:38.583+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2024-11-24T09:44:38.583+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.2 created.
+2024-11-24T09:44:38.584+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : Using db table-based data access locking (synchronization).
+2024-11-24T09:44:38.585+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : JobStoreTX initialized.
+2024-11-24T09:44:38.586+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.2) 'telsoft' with instanceId 'DESKTOP-GO6FQ711732416278573'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 100 threads.
+  Using job-store 'org.quartz.impl.jdbcjobstore.JobStoreTX' - which supports persistence. and is clustered.
+
+2024-11-24T09:44:38.587+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'telsoft' initialized from an externally provided properties instance.
+2024-11-24T09:44:38.587+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.2
+2024-11-24T09:44:38.587+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@28d7b8c4
+2024-11-24T09:44:38.912+07:00  WARN 24092 --- [quartz-worker] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-24T09:44:39.222+07:00  WARN 24092 --- [quartz-worker] [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 1f6d6b46-9204-4261-a7ed-9f2d68a99c9e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-11-24T09:44:39.250+07:00  INFO 24092 --- [quartz-worker] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-11-24T09:44:39.332+07:00  WARN 24092 --- [quartz-worker] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2024-11-24T09:44:39.358+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-11-24T09:44:39.359+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2024-11-24T09:44:39.375+07:00  INFO 24092 --- [quartz-worker] [restartedMain] c.m.v.c.i.AbstractPoolBackedDataSource   : Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 326rxhb7pjj3mb1e1y2g|79725bbc, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.cj.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 326rxhb7pjj3mb1e1y2g|79725bbc, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/blog?useSSL=false, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 10, maxStatements -> 0, maxStatementsPerConnection -> 120, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {password=******, user=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+2024-11-24T09:44:39.402+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : ClusterManager: detected 1 failed or restarted instances.
+2024-11-24T09:44:39.402+07:00  INFO 24092 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : ClusterManager: Scanning for instance "DESKTOP-GO6FQ711732372846092"'s failed in-progress jobs.
+2024-11-24T09:44:39.407+07:00  INFO 24092 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732416278573 started.
+2024-11-24T09:44:39.409+07:00  INFO 24092 --- [quartz-worker] [QuartzScheduler_telsoft-DESKTOP-GO6FQ711732416278573_MisfireHandler] o.quartz.impl.jdbcjobstore.JobStoreTX    : Handling 1 trigger(s) that missed their scheduled fire-time.
+2024-11-24T09:44:39.413+07:00  INFO 24092 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : Started QuartzWokerApplication in 3.803 seconds (process running for 4.315)
+2024-11-24T10:31:44.677+07:00  INFO 24092 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732416278573 paused.
+2024-11-24T10:31:44.921+07:00  INFO 24092 --- [quartz-worker] [SpringApplicationShutdownHook] o.s.s.quartz.SchedulerFactoryBean        : Shutting down Quartz Scheduler
+2024-11-24T10:31:44.921+07:00  INFO 24092 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732416278573 shutting down.
+2024-11-24T10:31:44.921+07:00  INFO 24092 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732416278573 paused.
+2024-11-24T10:31:44.922+07:00  INFO 24092 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732416278573 shutdown complete.
+2024-11-24T10:31:44.922+07:00  INFO 24092 --- [quartz-worker] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-24T10:31:44.925+07:00  INFO 24092 --- [quartz-worker] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-24T10:31:44.926+07:00  INFO 24092 --- [quartz-worker] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-24T10:31:46.743+07:00  INFO 7028 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : Starting QuartzWokerApplication using Java 17.0.11 with PID 7028 (D:\ThinhLD\ocs2023\quartz-spring\quartz-woker\target\classes started by thinhld in D:\ThinhLD\ocs2023\quartz-spring\quartz-woker)
+2024-11-24T10:31:46.745+07:00  INFO 7028 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-11-24T10:31:46.770+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\thinhld\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/thinhld/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2024-11-24T10:31:46.771+07:00  INFO 7028 --- [quartz-worker] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-24T10:31:46.771+07:00  INFO 7028 --- [quartz-worker] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-24T10:31:47.229+07:00  INFO 7028 --- [quartz-worker] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-24T10:31:47.285+07:00  INFO 7028 --- [quartz-worker] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 16 JPA repository interfaces.
+2024-11-24T10:31:47.629+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-11-24T10:31:47.640+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-24T10:31:47.640+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2024-11-24T10:31:47.675+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-24T10:31:47.675+07:00  INFO 7028 --- [quartz-worker] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 904 ms
+2024-11-24T10:31:47.734+07:00  INFO 7028 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-24T10:31:47.821+07:00  INFO 7028 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@589bb83a
+2024-11-24T10:31:47.823+07:00  INFO 7028 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-24T10:31:47.878+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-24T10:31:47.912+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-24T10:31:47.934+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-24T10:31:48.117+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-24T10:31:48.827+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-24T10:31:48.905+07:00  INFO 7028 --- [quartz-worker] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-24T10:31:48.944+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Using ConnectionProvider class 'org.quartz.utils.C3p0PoolingConnectionProvider' for data source 'blog'
+2024-11-24T10:31:48.955+07:00  INFO 7028 --- [quartz-worker] [MLog-Init-Reporter] com.mchange.v2.log.MLog                  : MLog clients using slf4j logging.
+2024-11-24T10:31:48.970+07:00  INFO 7028 --- [quartz-worker] [restartedMain] com.mchange.v2.c3p0.C3P0Registry         : Initializing c3p0-0.9.5.5 [built 11-December-2019 22:18:33 -0800; debug? true; trace: 10]
+2024-11-24T10:31:48.988+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2024-11-24T10:31:48.998+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2024-11-24T10:31:48.998+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.2 created.
+2024-11-24T10:31:48.999+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : Using db table-based data access locking (synchronization).
+2024-11-24T10:31:49.000+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : JobStoreTX initialized.
+2024-11-24T10:31:49.000+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.2) 'telsoft' with instanceId 'DESKTOP-GO6FQ711732419108989'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 100 threads.
+  Using job-store 'org.quartz.impl.jdbcjobstore.JobStoreTX' - which supports persistence. and is clustered.
+
+2024-11-24T10:31:49.000+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'telsoft' initialized from an externally provided properties instance.
+2024-11-24T10:31:49.000+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.2
+2024-11-24T10:31:49.000+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@4da5c3ed
+2024-11-24T10:31:49.307+07:00  WARN 7028 --- [quartz-worker] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-24T10:31:49.608+07:00  WARN 7028 --- [quartz-worker] [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c0f66940-ad6a-4ae8-8151-cffcc817a77f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-11-24T10:31:49.621+07:00  INFO 7028 --- [quartz-worker] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-11-24T10:31:49.703+07:00  WARN 7028 --- [quartz-worker] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2024-11-24T10:31:49.729+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-11-24T10:31:49.730+07:00  INFO 7028 --- [quartz-worker] [restartedMain] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2024-11-24T10:31:49.741+07:00  INFO 7028 --- [quartz-worker] [restartedMain] c.m.v.c.i.AbstractPoolBackedDataSource   : Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 326rxhb7pl7rl2g4ituy|605f5cb, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.cj.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 326rxhb7pl7rl2g4ituy|605f5cb, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/blog?useSSL=false, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 10, maxStatements -> 0, maxStatementsPerConnection -> 120, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {password=******, user=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+2024-11-24T10:31:49.771+07:00  INFO 7028 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732419108989 started.
+2024-11-24T10:31:49.777+07:00  INFO 7028 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : Started QuartzWokerApplication in 3.285 seconds (process running for 3.735)
+2024-11-24T10:32:09.772+07:00  INFO 7028 --- [quartz-worker] [QuartzScheduler_telsoft-DESKTOP-GO6FQ711732419108989_ClusterManager] o.quartz.impl.jdbcjobstore.JobStoreTX    : ClusterManager: detected 1 failed or restarted instances.
+2024-11-24T10:32:09.772+07:00  INFO 7028 --- [quartz-worker] [QuartzScheduler_telsoft-DESKTOP-GO6FQ711732419108989_ClusterManager] o.quartz.impl.jdbcjobstore.JobStoreTX    : ClusterManager: Scanning for instance "DESKTOP-GO6FQ711732416278573"'s failed in-progress jobs.
+2024-11-24T10:33:49.776+07:00  INFO 7028 --- [quartz-worker] [QuartzScheduler_telsoft-DESKTOP-GO6FQ711732419108989_MisfireHandler] o.quartz.impl.jdbcjobstore.JobStoreTX    : Handling 3 trigger(s) that missed their scheduled fire-time.
+2024-11-24T16:47:33.645+07:00  WARN 7028 --- [quartz-worker] [telsoft_Worker-76] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1054, SQLState: 42S22
+2024-11-24T16:47:33.645+07:00 ERROR 7028 --- [quartz-worker] [telsoft_Worker-76] o.h.engine.jdbc.spi.SqlExceptionHelper   : Unknown column 'START_TYPE' in 'field list'
+2024-11-24T16:47:39.318+07:00  INFO 7028 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732419108989 paused.
+2024-11-24T16:47:39.571+07:00  INFO 7028 --- [quartz-worker] [SpringApplicationShutdownHook] o.s.s.quartz.SchedulerFactoryBean        : Shutting down Quartz Scheduler
+2024-11-24T16:47:39.571+07:00  INFO 7028 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732419108989 shutting down.
+2024-11-24T16:47:39.571+07:00  INFO 7028 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732419108989 paused.
+2024-11-24T16:47:39.572+07:00  INFO 7028 --- [quartz-worker] [SpringApplicationShutdownHook] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732419108989 shutdown complete.
+2024-11-24T16:47:39.573+07:00  INFO 7028 --- [quartz-worker] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-24T16:47:39.575+07:00  INFO 7028 --- [quartz-worker] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-24T16:47:39.576+07:00  INFO 7028 --- [quartz-worker] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-24T17:06:16.196+07:00  INFO 5052 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : Starting QuartzWokerApplication using Java 17.0.11 with PID 5052 (D:\ThinhLD\ocs2023\quartz-spring\quartz-woker\target\classes started by thinhld in D:\ThinhLD\ocs2023\quartz-spring\quartz-woker)
+2024-11-24T17:06:16.198+07:00  INFO 5052 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : No active profile set, falling back to 1 default profile: "default"
+2024-11-24T17:06:16.226+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\thinhld\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/thinhld/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2024-11-24T17:06:16.227+07:00  INFO 5052 --- [quartz-worker] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-24T17:06:16.799+07:00  INFO 5052 --- [quartz-worker] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-24T17:06:16.859+07:00  INFO 5052 --- [quartz-worker] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 16 JPA repository interfaces.
+2024-11-24T17:06:17.034+07:00  INFO 5052 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-24T17:06:17.125+07:00  INFO 5052 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7413e7ac
+2024-11-24T17:06:17.126+07:00  INFO 5052 --- [quartz-worker] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-24T17:06:17.179+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-24T17:06:17.212+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-24T17:06:17.233+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-24T17:06:17.417+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-24T17:06:18.193+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-24T17:06:18.284+07:00  INFO 5052 --- [quartz-worker] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-24T17:06:18.325+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Using ConnectionProvider class 'org.quartz.utils.C3p0PoolingConnectionProvider' for data source 'blog'
+2024-11-24T17:06:18.335+07:00  INFO 5052 --- [quartz-worker] [MLog-Init-Reporter] com.mchange.v2.log.MLog                  : MLog clients using slf4j logging.
+2024-11-24T17:06:18.349+07:00  INFO 5052 --- [quartz-worker] [restartedMain] com.mchange.v2.c3p0.C3P0Registry         : Initializing c3p0-0.9.5.5 [built 11-December-2019 22:18:33 -0800; debug? true; trace: 10]
+2024-11-24T17:06:18.367+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2024-11-24T17:06:18.376+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2024-11-24T17:06:18.376+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.2 created.
+2024-11-24T17:06:18.377+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : Using db table-based data access locking (synchronization).
+2024-11-24T17:06:18.378+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : JobStoreTX initialized.
+2024-11-24T17:06:18.378+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.2) 'telsoft' with instanceId 'DESKTOP-GO6FQ711732442778368'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 100 threads.
+  Using job-store 'org.quartz.impl.jdbcjobstore.JobStoreTX' - which supports persistence. and is clustered.
+
+2024-11-24T17:06:18.378+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'telsoft' initialized from an externally provided properties instance.
+2024-11-24T17:06:18.378+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.2
+2024-11-24T17:06:18.378+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@4543c200
+2024-11-24T17:06:18.734+07:00  WARN 5052 --- [quartz-worker] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2024-11-24T17:06:18.749+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2024-11-24T17:06:18.760+07:00  INFO 5052 --- [quartz-worker] [restartedMain] c.m.v.c.i.AbstractPoolBackedDataSource   : Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 326rxhb7pzb2zt14ni2v7|40b48dca, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.cj.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 326rxhb7pzb2zt14ni2v7|40b48dca, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/blog?useSSL=false, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 10, maxStatements -> 0, maxStatementsPerConnection -> 120, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {password=******, user=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+2024-11-24T17:06:18.786+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : ClusterManager: detected 1 failed or restarted instances.
+2024-11-24T17:06:18.787+07:00  INFO 5052 --- [quartz-worker] [restartedMain] o.quartz.impl.jdbcjobstore.JobStoreTX    : ClusterManager: Scanning for instance "DESKTOP-GO6FQ711732419108989"'s failed in-progress jobs.
+2024-11-24T17:06:18.791+07:00  INFO 5052 --- [quartz-worker] [restartedMain] org.quartz.core.QuartzScheduler          : Scheduler telsoft_$_DESKTOP-GO6FQ711732442778368 started.
+2024-11-24T17:06:18.793+07:00  INFO 5052 --- [quartz-worker] [QuartzScheduler_telsoft-DESKTOP-GO6FQ711732442778368_MisfireHandler] o.quartz.impl.jdbcjobstore.JobStoreTX    : Handling 1 trigger(s) that missed their scheduled fire-time.
+2024-11-24T17:06:18.795+07:00  INFO 5052 --- [quartz-worker] [restartedMain] t.s.q.worker.QuartzWokerApplication      : Started QuartzWokerApplication in 2.841 seconds (process running for 3.601)

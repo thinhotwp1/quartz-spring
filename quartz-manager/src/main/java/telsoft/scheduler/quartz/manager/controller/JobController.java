@@ -1,14 +1,13 @@
 package telsoft.scheduler.quartz.manager.controller;
 
 import jakarta.xml.bind.ValidationException;
-import org.quartz.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-import telsoft.scheduler.quartz.manager.dto.StartupModeRequest;
 import telsoft.scheduler.quartz.manager.service.JobService;
 import telsoft.scheduler.quartz.manager.dto.CreateJobRequest;
 
@@ -28,7 +27,7 @@ public class JobController {
     private JobService jobService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createGenericJob(@RequestBody CreateJobRequest createJobRequest) throws SchedulerException, ClassNotFoundException, ValidationException, InterruptedException {
+    public ResponseEntity<?> createGenericJob(@RequestBody CreateJobRequest createJobRequest) throws  ClassNotFoundException, ValidationException, InterruptedException {
         jobService.createGenericJob(createJobRequest);
         return ResponseEntity.ok("Job created successfully with classpath: " + createJobRequest.getClasspath());
     }
@@ -37,7 +36,7 @@ public class JobController {
     public ResponseEntity<?> getJobs(@RequestParam(required = false) String projectName,
                                      @RequestParam(required = false) String jobId,
                                      @RequestParam(required = false) String jobGroup,
-                                     @RequestParam(required = false, defaultValue = "false") boolean isDisable) throws SchedulerException {
+                                     @RequestParam(required = false, defaultValue = "false") boolean isDisable)  {
         return ResponseEntity.ok(jobService.getJobs(projectName, jobId, jobGroup, isDisable));
     }
 
@@ -81,7 +80,7 @@ public class JobController {
     }
 
 //    @PostMapping("/change-startup-mode")
-//    public ResponseEntity<?> changeStartupMode(@RequestBody StartupModeRequest startupModeRequest) throws SchedulerException {
+//    public ResponseEntity<?> changeStartupMode(@RequestBody StartupModeRequest startupModeRequest)  {
 //        return jobService.updateStartupMode(startupModeRequest);
 //    }
 
